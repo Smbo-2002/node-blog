@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="postApp">
+  <head>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="MIME" type="application/json" href="bower_components/bootstrap/dist/css/bootstrap.css.map">
+    <link rel="stylesheet/less" type="text/css" href="style/style.less">
+    <!--<link rel="stylesheet/less" type="text/css" href="bower_components/bootstrap/less/">-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700' rel='stylesheet' type='text/css'>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/ng-classified/dist/ng-classified.js"></script>
+    <script type="text/javascript" src="post.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.js"></script>
+  </head>
+  <body>
+  	<div ng-controller="blogFormController as blogForm">
+      <div class="blog-form container-fluid">
+        <div class="col-md-8 col-sm-8 xol-xs-8 col-md-offset-2">
+      		<form ng-submit="blogForm.savePost(blogForm.data)" novalidate>
+      			<textarea class="col-md-12 col-sm-12 col-xs-12" placeholder="Write Something..." ng-model="blogForm.data.text"></textarea>
+            <br />
+      			<button class="col-md-12 col-sm-12 col-xs-12  glyphicon glyphicon-plus" type="submit" name="submit"></button>
+      		</form>
+        </div>
+      </div>
+      <div class="blog-body col-md-8 col-sm-8 xol-xs-8 col-md-offset-2" ng-repeat="post in blogForm.posts">
+        <p class="col-md-10 col-sm-10 col-xs-10"><span class="glyphicon glyphicon-pushpin"></span> {{post.text}}</p>
+        <div class="right-side col-md-2 col-sm-2 col-xs-2">
+          <button class="glyphicon glyphicon-trash" ng-click="blogForm.delPost($index)"></button>
+          <button class="glyphicon glyphicon-edit" ng-init="post.hide=true" ng-click="post.hide=!post.hide"></button>
+        </div>
+        <div ng-hide="post.hide">
+          <textarea placeholder="Write New Text..." ng-model="post.text"></textarea>
+          <button class="glyphicon glyphicon-ok" ng-click="blogForm.edPost($index)"></button>
+          </div>
+        </div>  
+    </div>
+  </body>
+</html>
