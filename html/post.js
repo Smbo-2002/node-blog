@@ -1,18 +1,18 @@
 (function() {
-
+    
 	class blogFormController {
 
 		 constructor ($http) {
-			this.posts = []
+			this.posts = [];
 
 			this.http = $http;
 
 			$http.get('/api')
 			.then((data) => {
-				this.posts = data.data
+				this.posts = data.data;
 			})
 			.catch((err) => {	
-				alert("something gone wrong")
+				alert("something gone wrong");
 			});
 		}
 
@@ -23,7 +23,7 @@
 				this.data.text = "";
 				console.log(this.posts);
 			})
-			.catch(err => alert("something gone wrong"));
+			.catch(err => alert("something gone wrong"))
 		}
 
 		delPost (index){
@@ -45,7 +45,7 @@
 	.constant('$classify', true)
 	.controller('blogFormController', blogFormController);
 
-	// app.factory('Blog', $resource => {
-	// 	return $resource('/api/');
-	// });
+	 app.factory('Blog', $resource => {
+	 	return $resource('/api/');
+	 });
 })();
