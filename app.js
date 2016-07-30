@@ -18,13 +18,14 @@ var Schema = mongoose.Schema;
 var blogSchema = new Schema({
     text: String
 });
+
 var Blog = mongoose.model('Blog', blogSchema);
 
 app.get('/api', function (req, res) {
    
     Blog.find(function (err, data) {
-      if (err) return console.error(err);
-      res.status(201).send(data);
+        if (err) {return console.error(err); }
+		res.status(201).send(data);
     });
 });
 
@@ -34,11 +35,33 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.post('/api', function (req, res) {
     var post = new Blog(req.body);
     post.save()
-    .then(function(data){
-        res.status(201).send(data);
-    }).catch(function(err){
-        console.log(err);
+        .then(function (data) {
+            res.status(201).send(data);
+        }).catch(function (err) {
+            console.log(err);
+        });
+});
+
+app.delete('/api/:id', function (req, res) {
+    Blog.findByIdAndRemove(req.params.id, function (err, data) {
+		if (err) { return console.log(err); }
+		return res.status(201).send(data);
     });
+});
+
+app.put('/api/:id', function (req, res) {
+	var query = {'_id': req.params.id};
+	
+	Blog.update(req.params.id, {$set:req.body})
+	.then(function(){
+		return Blog.findOne(req.params.id).exec();	
+	})
+	.then(function(data) {
+		res.status(200).send(data);
+	})
+	.catch(function(err){
+		console.error(err);
+	});
 });
 
 app.use('/', express.static('html'));
