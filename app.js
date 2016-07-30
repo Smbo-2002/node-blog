@@ -23,10 +23,13 @@ var Blog = mongoose.model('Blog', blogSchema);
 
 app.get('/api', function (req, res) {
    
-    Blog.find(function (err, data) {
-        if (err) {return console.error(err); }
-		res.status(201).send(data);
-    });
+    Blog.find()
+		.then(function (data) {
+			res.status(200).send(data);
+		})
+		.catch(function (err) {
+			return console.log(err);
+		});
 });
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -43,10 +46,13 @@ app.post('/api', function (req, res) {
 });
 
 app.delete('/api/:id', function (req, res) {
-    Blog.findByIdAndRemove(req.params.id, function (err, data) {
-		if (err) { return console.log(err); }
-		return res.status(201).send(data);
-    });
+    Blog.findByIdAndRemove(req.params.id)
+		.then(function (data) {
+			return res.status(200).send(data);
+		})
+		.catch(function (err) {
+			return console.log(err);
+		});
 });
 
 app.put('/api/:id', function (req, res) {
