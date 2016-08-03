@@ -18,7 +18,7 @@
   	<div ng-controller="blogFormController as blogForm">
       <div class="blog-form container-fluid">
         <div class="col-md-8 col-sm-8 xol-xs-8 col-md-offset-2">
-      		<form ng-submit="blogForm.savePost(blogForm.data)" novalidate>
+      		<form ng-submit="blogForm.save(blogForm.data)" novalidate>
       			<textarea class="col-md-12 col-sm-12 col-xs-12" placeholder="Write Something..." ng-model="blogForm.data.text"></textarea>
             <br />
       			<button class="col-md-12 col-sm-12 col-xs-12  glyphicon glyphicon-plus" type="submit" name="submit"></button>
@@ -28,12 +28,12 @@
       <div class="blog-body col-md-8 col-sm-8 xol-xs-8 col-md-offset-2" ng-repeat="post in blogForm.posts">
         <p class="col-md-10 col-sm-10 col-xs-10"><span class="glyphicon glyphicon-pushpin"></span> {{post.text}}</p>
         <div class="right-side col-md-2 col-sm-2 col-xs-2">
-          <button class="glyphicon glyphicon-trash" ng-click="blogForm.delPost($index)"></button>
+          <button class="glyphicon glyphicon-trash" ng-click="blogForm.del($index)"></button>
           <button class="glyphicon glyphicon-edit" ng-init="post.hide=true" ng-click="post.hide=!post.hide"></button>
         </div>
         <div ng-hide="post.hide">
           <textarea placeholder="Write New Text..." ng-model="post.text"></textarea>
-          <button class="glyphicon glyphicon-ok" ng-click="blogForm.edPost($index)"></button>
+          <button class="glyphicon glyphicon-ok" ng-click="blogForm.ed($index)"></button>
           </div>
         </div>  
     </div>
