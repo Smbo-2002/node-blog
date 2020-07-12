@@ -5,7 +5,10 @@ var app = express();
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/blog');
+mongoose.connect('mongodb://localhost/blog', {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+});
 
 mongoose.Promise = require('bluebird');
 
